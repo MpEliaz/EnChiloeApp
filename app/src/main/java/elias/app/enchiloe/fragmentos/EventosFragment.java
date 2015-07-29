@@ -30,10 +30,15 @@ public class EventosFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_eventos, container, false);
-        setHasOptionsMenu(true);
         eventos = new ArrayList<Evento>();
         for(int i=0; i<10; i++)
             eventos.add(new Evento(i, "Gran reitimiento en Chanco " + i, "gran reitimiento a las afueras de chanco, yoco curantos y una gran variedad de comida tipica de la zona. " + i));
@@ -52,6 +57,7 @@ public class EventosFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.menu_eventos, menu);
         super.onCreateOptionsMenu(menu, inflater);
 

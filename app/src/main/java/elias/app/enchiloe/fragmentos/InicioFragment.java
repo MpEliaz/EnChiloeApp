@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -29,6 +31,11 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,4 +105,12 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
     @Override
     public void onPageScrollStateChanged(int state) {}
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_inicio, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 }
+
+

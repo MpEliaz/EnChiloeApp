@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import elias.app.adaptadores.MainPagerAdapter;
@@ -17,7 +20,7 @@ import elias.app.enchiloe.fragmentos.EventosFragment;
 import elias.app.enchiloe.fragmentos.InicioFragment;
 
 
-public class ActividadPrincipal extends AppCompatActivity {
+public class ActividadPrincipal extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     Toolbar toolbar;
     private ViewPager pager;
@@ -40,8 +43,8 @@ public class ActividadPrincipal extends AppCompatActivity {
         adapter = new MainPagerAdapter(getSupportFragmentManager(), fragments);
 
         pager = (ViewPager)findViewById(R.id.pager);
+        pager.addOnPageChangeListener(this);
         pager.setAdapter(adapter);
-
         tabs = (TabLayout)findViewById(R.id.tabs);
         tabs.setBackgroundColor(getResources().getColor(R.color.color_primary));
         tabs.setTabTextColors(ColorStateList.valueOf(getResources().getColor(R.color.white)));
@@ -50,8 +53,14 @@ public class ActividadPrincipal extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_actividad_principal, menu);
+        if (pager.getCurrentItem()==1) {
+            getMenuInflater().inflate(R.menu.menu_inicio, menu);
+        }
+        if (pager.getCurrentItem()==2) {
+            getMenuInflater().inflate(R.menu.menu_eventos, menu);
+        }
+
+        //getMenuInflater().inflate(R.menu.menu_actividad_principal, menu);
         return true;
     }
 
@@ -63,10 +72,25 @@ public class ActividadPrincipal extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+    /*    if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+       // Toast.makeText(this,"page "+i, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 }

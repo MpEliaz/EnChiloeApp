@@ -45,8 +45,7 @@ public class EventosAdaptador extends RecyclerView.Adapter<EventosAdaptador.Even
         return datos.size();
     }
 
-    public static class EventosViewHolder
-            extends RecyclerView.ViewHolder {
+    public static class EventosViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txtNombre;
         private TextView txtDescripcion;

@@ -5,10 +5,10 @@ package elias.app.modelos;
  */
 public class Pyme {
     private int id;
-    private int telefono;
-    private int estado;
     private String nombre;
     private String direccion;
+    private int telefono;
+    private int estado;
     private String email;
     private String url_imagen;
     private String descripcion_corta;
