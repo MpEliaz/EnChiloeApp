@@ -1,7 +1,9 @@
 package elias.app.adaptadores;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +24,9 @@ import elias.app.modelos.Evento;
 public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptador.CategoriaViewHolder> {
 
     private ArrayList<Categoria> datos;
-    private int[] colores;
 
     public CategoriasAdaptador(ArrayList<Categoria> datos) {
         this.datos = datos;
-        colores = new int[]{R.color.cat_1, R.color.cat_2, R.color.cat_3, R.color.cat_4};
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptado
     @Override
     public void onBindViewHolder(CategoriaViewHolder viewHolder, int pos) {
         Categoria item = datos.get(pos);
-        viewHolder.bindTitular(item, colores[pos]);
+        viewHolder.bindTitular(item);
     }
 
     @Override
@@ -61,13 +61,13 @@ public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptado
             super(itemView);
 
             txtNombre = (TextView)itemView.findViewById(R.id.cat_nombre);
-            cat_imagen = (ImageView)itemView.findViewById(R.id.cat_imagen);
+            cat_imagen = (ImageView)itemView.findViewById(R.id.cat_color);
             //txtDescripcion = (TextView)itemView.findViewById(R.id.txtEventoDescripcion);
         }
 
-        public void bindTitular(Categoria t, int color) {
+        public void bindTitular(Categoria t) {
             txtNombre.setText(t.getNombre());
-            cat_imagen.setBackgroundColor(color);
+            cat_imagen.setBackgroundColor(t.getColor());
             //txtDescripcion.setText(t.getDescripcion());
         }
     }

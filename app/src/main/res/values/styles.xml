@@ -10,4 +10,10 @@
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
+    <style name="FichaTitle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">30dp</item>
+    </style>
+
 </resources>

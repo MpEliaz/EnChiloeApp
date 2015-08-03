@@ -35,10 +35,10 @@ public class CategoriasFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_categorias, container, false);
 
         categorias = new ArrayList<Categoria>();
-        categorias.add(new Categoria("¿Qué hacer?"));
-        categorias.add(new Categoria("¿Donde Dormir?"));
-        categorias.add(new Categoria("¿Donde Comer?"));
-        categorias.add(new Categoria("Servicios"));
+        categorias.add(new Categoria("¿Qué hacer?",v.getContext().getResources().getColor(R.color.cat_1)));
+        categorias.add(new Categoria("¿Donde Dormir?", v.getContext().getResources().getColor(R.color.cat_2)));
+        categorias.add(new Categoria("¿Donde Comer?", v.getContext().getResources().getColor(R.color.cat_3)));
+        categorias.add(new Categoria("Servicios", v.getContext().getResources().getColor(R.color.cat_4)));
 
 
         recView = (RecyclerView)v.findViewById(R.id.Categorias_RecView);

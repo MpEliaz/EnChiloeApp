@@ -1,9 +1,11 @@
 package elias.app.enchiloe.fragmentos;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import elias.app.adaptadores.EventosAdaptador;
+import elias.app.enchiloe.ActividadFicha;
 import elias.app.enchiloe.R;
 import elias.app.modelos.Evento;
 import android.support.v4.app.Fragment;
@@ -48,6 +51,15 @@ public class EventosFragment extends Fragment {
 
         final EventosAdaptador adaptador = new EventosAdaptador(eventos);
 
+        adaptador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Log.i("DemoRecView", "Pulsado el elemento " + recView.getChildPosition(v));
+                Intent intent = new Intent(getActivity(), ActividadFicha.class);
+                startActivity(intent);
+            }
+        });
+
         recView.setAdapter(adaptador);
         recView.setLayoutManager(
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -60,7 +72,6 @@ public class EventosFragment extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.menu_eventos, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
 
     }
 }

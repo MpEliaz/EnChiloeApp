@@ -14,9 +14,10 @@ import elias.app.modelos.Evento;
 /**
  * Created by elias on 26-07-15.
  */
-public class EventosAdaptador extends RecyclerView.Adapter<EventosAdaptador.EventosViewHolder> {
+public class EventosAdaptador extends RecyclerView.Adapter<EventosAdaptador.EventosViewHolder> implements View.OnClickListener {
 
     private ArrayList<Evento> datos;
+    private View.OnClickListener listener;
 
     public EventosAdaptador(ArrayList<Evento> datos) {
         this.datos = datos;
@@ -28,6 +29,7 @@ public class EventosAdaptador extends RecyclerView.Adapter<EventosAdaptador.Even
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.eventos_list_item2, viewGroup, false);
 
+        itemView.setOnClickListener(this);
         EventosViewHolder tvh = new EventosViewHolder(itemView);
 
         return tvh;
@@ -62,4 +64,15 @@ public class EventosAdaptador extends RecyclerView.Adapter<EventosAdaptador.Even
             txtDescripcion.setText(t.getDescripcion());
         }
     }
+
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(listener != null)
+            listener.onClick(view);
+    }
+
 }

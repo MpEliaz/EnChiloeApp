@@ -1,5 +1,7 @@
 package elias.app.modelos;
 
+import android.graphics.Color;
+
 /**
  * Created by elias on 26-07-15.
  */
@@ -7,9 +9,19 @@ public class Categoria {
     private int id;
     private String nombre;
     private String descripcion;
+    private int color;
 
-    public Categoria(String nombre) {
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    public Categoria(String nombre, int color) {
         this.nombre = nombre;
+        this.color = color;
     }
 
     public int getId() {
