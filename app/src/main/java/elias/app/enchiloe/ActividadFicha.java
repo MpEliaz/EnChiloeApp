@@ -10,17 +10,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import elias.app.adaptadores.CategoriasAdaptador;
 import elias.app.modelos.Categoria;
 
 
-public class ActividadFicha extends AppCompatActivity {
+public class ActividadFicha extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     private RecyclerView recView;
     ArrayList<Categoria> categorias;
     private CollapsingToolbarLayout ctlLayout;
+    private SliderLayout mDemoSlider;
 
 
     @Override
@@ -50,6 +59,37 @@ public class ActividadFicha extends AppCompatActivity {
         recView.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));*/
 
+        mDemoSlider = (SliderLayout)findViewById(R.id.slider1);
+
+        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
+        file_maps.put("Hannibal", R.drawable.hotel3);
+        file_maps.put("Big Bang Theory", R.drawable.hotel2);
+        file_maps.put("House of Cards", R.drawable.hotel1);
+
+        for(String name : file_maps.keySet()){
+            DefaultSliderView textSliderView = new DefaultSliderView(this);
+            // initialize a SliderLayout
+            textSliderView
+                    //.description(name)
+                    .image(file_maps.get(name))
+                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                    .setOnSliderClickListener(this);
+
+
+            //add your extra information
+            textSliderView.bundle(new Bundle());
+            textSliderView.getBundle()
+                    .putString("extra",name);
+
+            mDemoSlider.addSlider(textSliderView);
+        }
+
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Stack );
+        //mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+        mDemoSlider.setDuration(6000);
+        mDemoSlider.addOnPageChangeListener(this);
+
         //CollapsingToolbarLayout
         ctlLayout = (CollapsingToolbarLayout)findViewById(R.id.ctlLayout);
         ctlLayout.setTitle("Hotel Patagonia");
@@ -77,5 +117,25 @@ public class ActividadFicha extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
+    }
+
+    @Override
+    public void onSliderClick(BaseSliderView baseSliderView) {
+
     }
 }

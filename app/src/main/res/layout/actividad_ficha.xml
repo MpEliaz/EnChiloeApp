@@ -8,6 +8,7 @@
         android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:elevation="5dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -19,13 +20,35 @@
             app:expandedTitleTextAppearance="@style/FichaTitle"
             app:expandedTitleMarginBottom="20dp">
 
-            <ImageView
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                app:layout_collapseMode="parallax">
+
+                <com.daimajia.slider.library.SliderLayout
+                    android:id="@+id/slider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+<!--                <com.daimajia.slider.library.Indicators.PagerIndicator
+                    android:id="@+id/custom_indicator1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    />-->
+
+            </LinearLayout>
+
+            <!--<ImageView
                 android:id="@+id/imgToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/quellon"
-                app:layout_collapseMode="parallax" />
+                app:layout_collapseMode="parallax" />-->
 
 
             <android.support.v7.widget.Toolbar
