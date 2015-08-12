@@ -1,11 +1,13 @@
 package elias.app.enchiloe;
 
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,22 +45,6 @@ public class ActividadFicha extends AppCompatActivity implements BaseSliderView.
         setSupportActionBar(toolbar);
         //getSupportActionBar().setTitle("Mi Aplicación");
 
-        categorias = new ArrayList<Categoria>();
-        categorias.add(new Categoria("¿Qué hacer?",this.getResources().getColor(R.color.cat_1)));
-        categorias.add(new Categoria("¿Donde Dormir?", this.getResources().getColor(R.color.cat_2)));
-        categorias.add(new Categoria("¿Donde Comer?", this.getResources().getColor(R.color.cat_3)));
-        categorias.add(new Categoria("Servicios", this.getResources().getColor(R.color.cat_4)));
-
-
-        /*recView = (RecyclerView) findViewById(R.id.lstLista);
-        recView.setHasFixedSize(true);
-
-        final CategoriasAdaptador adaptador = new CategoriasAdaptador(categorias);
-
-        recView.setAdapter(adaptador);
-        recView.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));*/
-
         mDemoSlider = (SliderLayout)findViewById(R.id.slider1);
 
         HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
@@ -85,7 +71,7 @@ public class ActividadFicha extends AppCompatActivity implements BaseSliderView.
         }
 
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Stack );
-        //mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(6000);
         mDemoSlider.addOnPageChangeListener(this);
@@ -101,7 +87,9 @@ public class ActividadFicha extends AppCompatActivity implements BaseSliderView.
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_actividad_ficha, menu);
-        return true;
+
+
+         return true;
     }
 
     @Override
@@ -112,12 +100,13 @@ public class ActividadFicha extends AppCompatActivity implements BaseSliderView.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.pyme_filter) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onPageScrolled(int i, float v, int i1) {
@@ -138,4 +127,5 @@ public class ActividadFicha extends AppCompatActivity implements BaseSliderView.
     public void onSliderClick(BaseSliderView baseSliderView) {
 
     }
+
 }

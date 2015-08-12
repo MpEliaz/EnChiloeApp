@@ -21,9 +21,10 @@ import elias.app.modelos.Evento;
 /**
  * Created by elias on 26-07-15.
  */
-public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptador.CategoriaViewHolder> {
+public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptador.CategoriaViewHolder> implements View.OnClickListener {
 
     private ArrayList<Categoria> datos;
+    private View.OnClickListener listener;
 
     public CategoriasAdaptador(ArrayList<Categoria> datos) {
         this.datos = datos;
@@ -35,6 +36,7 @@ public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptado
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.categoria_list_item, viewGroup, false);
 
+        itemView.setOnClickListener(this);
         CategoriaViewHolder tvh = new CategoriaViewHolder(itemView);
 
         return tvh;
@@ -43,12 +45,18 @@ public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptado
     @Override
     public void onBindViewHolder(CategoriaViewHolder viewHolder, int pos) {
         Categoria item = datos.get(pos);
-        viewHolder.bindTitular(item);
+        viewHolder.bindCategoria(item);
     }
 
     @Override
     public int getItemCount() {
         return datos.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(listener != null)
+            listener.onClick(v);
     }
 
     public static class CategoriaViewHolder extends RecyclerView.ViewHolder {
@@ -65,11 +73,15 @@ public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptado
             //txtDescripcion = (TextView)itemView.findViewById(R.id.txtEventoDescripcion);
         }
 
-        public void bindTitular(Categoria t) {
-            txtNombre.setText(t.getNombre());
-            cat_imagen.setBackgroundColor(t.getColor());
+        public void bindCategoria(Categoria c) {
+            txtNombre.setText(c.getNombre());
+            cat_imagen.setBackgroundColor(c.getColor());
             //txtDescripcion.setText(t.getDescripcion());
         }
+    }
+
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
     }
 
 }

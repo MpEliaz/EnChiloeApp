@@ -3,10 +3,13 @@ package elias.app.enchiloe.fragmentos;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -23,7 +26,7 @@ import elias.app.enchiloe.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InicioFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class InicioFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, SearchView.OnQueryTextListener {
 
     private SliderLayout mDemoSlider;
 
@@ -110,6 +113,20 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
         menu.clear();
         inflater.inflate(R.menu.menu_inicio, menu);
         super.onCreateOptionsMenu(menu, inflater);
+
+        final MenuItem item = menu.findItem(R.id.pyme_filter);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(this);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }
 

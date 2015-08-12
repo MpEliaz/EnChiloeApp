@@ -1,5 +1,6 @@
 package elias.app.enchiloe;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.content.res.ColorStateList;
 import android.support.design.widget.TabLayout;
@@ -72,9 +73,10 @@ public class ActividadPrincipal extends AppCompatActivity implements ViewPager.O
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-    /*    if (id == R.id.action_settings) {
-            return true;
-        }*/
+        if (id == R.id.eventos_filter) {
+            Intent a = new Intent(this, ActividadListaPymes.class);
+            startActivity(a);
+        }
 
         return super.onOptionsItemSelected(item);
     }

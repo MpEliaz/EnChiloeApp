@@ -17,4 +17,14 @@
         <item name="android:background">#8c000000</item>
     </style>
 
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/MyCustomTabText</item>
+    </style>
+
+    <style name="MyCustomTabText" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/cat_2</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
 </resources>

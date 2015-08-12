@@ -1,19 +1,39 @@
 package elias.app.modelos;
 
+import com.google.gson.annotations.SerializedName;
 /**
  * Created by elias on 26-07-15.
  */
 public class Pyme {
+    @SerializedName("id")
     private int id;
+    @SerializedName("nombre")
     private String nombre;
+    @SerializedName("direccion")
     private String direccion;
-    private int telefono;
+    @SerializedName("telefono")
+    private String telefono;
+    @SerializedName("comuna")
+    private String comuna;
+    @SerializedName("estado")
     private int estado;
+    @SerializedName("email")
     private String email;
+    @SerializedName("url_imagen")
     private String url_imagen;
+    @SerializedName("descripcion_corta")
     private String descripcion_corta;
+    @SerializedName("descripcion_larga")
     private String descripcion_larga;
 
+    public Pyme(){}
+
+    public Pyme(int id, String nombre, String descripcion_corta, String comuna) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion_corta = descripcion_corta;
+        this.comuna = comuna;
+    }
 
     public int getId() {
         return id;
@@ -23,12 +43,20 @@ public class Pyme {
         this.id = id;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(String comuna) {
+        this.comuna = comuna;
     }
 
     public int getEstado() {

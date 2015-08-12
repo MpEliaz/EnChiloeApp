@@ -19,7 +19,8 @@ public class Categoria {
         this.color = color;
     }
 
-    public Categoria(String nombre, int color) {
+    public Categoria(int id, String nombre, int color) {
+        this.id = id;
         this.nombre = nombre;
         this.color = color;
     }

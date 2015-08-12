@@ -6,173 +6,151 @@
     android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp" />
 
             <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical">
 
-                <com.daimajia.slider.library.SliderLayout
-                    android:id="@+id/slider"
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card1"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    />
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="3dp">
 
-                <com.daimajia.slider.library.Indicators.PagerIndicator
-                    android:id="@+id/custom_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/quellon"
+                        android:scaleType="centerCrop"/>
+
+                    <TextView
+                        android:id="@+id/txt1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Hotel Cailin"
+                        android:layout_gravity="bottom"
+                        android:background="#8c000000"
+                        android:textColor="#ffe3e3e3"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:singleLine="true" />
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card2"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="3dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/quellon"
+                        android:scaleType="centerCrop"/>
+
+                    <TextView
+                        android:id="@+id/txt2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Hotel gran Chiloé"
+                        android:layout_gravity="bottom"
+                        android:background="#8c000000"
+                        android:textColor="#ffe3e3e3"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
-            <TableLayout
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TableRow
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="200dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="3dp">
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/quellon"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/ims" />
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/card1"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:layout_column="0"
-                            android:layout_gravity="left"
-                            android:layout_weight="1"
-                            android:padding="0dp"
-                            android:layout_margin="0dp">
+                    <TextView
+                        android:id="@+id/txt3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="un texto largo de titulo"
+                        android:layout_gravity="bottom"
+                        android:background="#8c000000"
+                        android:textColor="#ffe3e3e3"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:singleLine="true" />
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/quellon"
-                                android:scaleType="centerCrop"/>
+                </android.support.v7.widget.CardView>
 
-                            <TextView
-                                android:id="@+id/txt1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="10dp"
-                                android:text="Hotel Cailin"
-                                android:layout_gravity="bottom"
-                                android:background="#8c000000"
-                                android:textColor="#ffe3e3e3"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:singleLine="true" />
-
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/card2"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:layout_column="0"
-                            android:layout_gravity="right"
-                            android:layout_weight="1"
-                            android:padding="0dp"
-                            android:layout_margin="0dp">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/quellon"
-                                android:scaleType="centerCrop"/>
-
-                            <TextView
-                                android:id="@+id/txt2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="10dp"
-                                android:text="Hotel gran Chiloé"
-                                android:layout_gravity="bottom"
-                                android:background="#8c000000"
-                                android:textColor="#ffe3e3e3"
-                                android:textSize="16sp"
-                                android:textStyle="bold"/>
-
-                        </android.support.v7.widget.CardView>
-                    </LinearLayout>
-                </TableRow>
-                <TableRow
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card4"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="200dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1">
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/quellon"
+                        android:scaleType="centerCrop"/>
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/card3"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:layout_column="0"
-                            android:layout_gravity="left"
-                            android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/txt4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="HOLA"
+                        android:layout_gravity="bottom"
+                        android:background="#8c000000"
+                        android:textColor="#ffe3e3e3"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
 
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/quellon"
-                                android:scaleType="centerCrop"/>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/txt3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="10dp"
-                                android:text="un texto largo de titulo"
-                                android:layout_gravity="bottom"
-                                android:background="#8c000000"
-                                android:textColor="#ffe3e3e3"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:singleLine="true" />
-
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/card4"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:layout_column="0"
-                            android:layout_gravity="right"
-                            android:layout_weight="1">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/quellon"
-                                android:scaleType="centerCrop"/>
-
-                            <TextView
-                                android:id="@+id/txt4"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="10dp"
-                                android:text="HOLA"
-                                android:layout_gravity="bottom"
-                                android:background="#8c000000"
-                                android:textColor="#ffe3e3e3"
-                                android:textSize="16sp"
-                                android:textStyle="bold"/>
-
-                        </android.support.v7.widget.CardView>
-                    </LinearLayout>
-                </TableRow>
-            </TableLayout>
         </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

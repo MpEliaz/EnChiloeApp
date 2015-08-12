@@ -39,7 +39,7 @@ public class EventosAdaptador extends RecyclerView.Adapter<EventosAdaptador.Even
     public void onBindViewHolder(EventosViewHolder viewHolder, int pos) {
         Evento item = datos.get(pos);
 
-        viewHolder.bindTitular(item);
+        viewHolder.bindEvento(item);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class EventosAdaptador extends RecyclerView.Adapter<EventosAdaptador.Even
             txtDescripcion = (TextView)itemView.findViewById(R.id.txtEventoDescripcion);
         }
 
-        public void bindTitular(Evento t) {
+        public void bindEvento(Evento t) {
             txtNombre.setText(t.getNombre());
             txtDescripcion.setText(t.getDescripcion());
         }
