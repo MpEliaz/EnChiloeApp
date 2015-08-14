@@ -16,32 +16,47 @@ import elias.app.modelos.Pyme;
 /**
  * Created by elias on 08-08-15.
  */
-public class PymeListaAdaptador extends RecyclerView.Adapter<PymeListaAdaptador.PymeListViewHolder> implements View.OnClickListener {
+public class PymeListaAdaptador extends RecyclerView.Adapter<PymeListaAdaptador.ViewHolder>  {
 
     private ArrayList<Pyme> datos;
-    private View.OnClickListener listener;
+    private OnItemClickListener onItemClickListener;
 
     public PymeListaAdaptador(ArrayList<Pyme> datos) {
         this.datos = datos;
     }
+    public interface OnItemClickListener {
+        void onItemClick(View view, Pyme pyme, int position);
+    }
 
     @Override
-    public PymeListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.pymes_list_item, parent, false);
 
-        itemView.setOnClickListener(this);
-        PymeListViewHolder vh = new PymeListViewHolder(itemView);
+        final ViewHolder vh = new ViewHolder(itemView);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onItemClickListener != null)
+                {
+                    onItemClickListener.onItemClick(v,datos.get(vh.getAdapterPosition()),vh.getAdapterPosition());
+                }
+            }
+        });
 
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(PymeListViewHolder Viewholder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Pyme item = datos.get(position);
-        Viewholder.bindPyme(item);
+        Pyme p = datos.get(position);
+        holder.txtNombre.setText(p.getNombre());
+        holder.txtComuna.setText(p.getComuna());
+        holder.txtDescripcion_corta.setText(p.getDescripcion_corta());
+        holder.setDesc_larga(p.getDescripcion_larga());
     }
 
     @Override
@@ -49,26 +64,16 @@ public class PymeListaAdaptador extends RecyclerView.Adapter<PymeListaAdaptador.
         return datos.size();
     }
 
-    @Override
-    public void onClick(View v) {
-        if(listener != null)
-            listener.onClick(v);
-    }
-
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.listener = listener;
-    }
-
-
-    public static class PymeListViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imgPymeList;
         private TextView txtNombre;
         private TextView txtComuna;
         private TextView txtDescripcion_corta;
+        private String desc_larga;
 
 
-        public PymeListViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
 
             imgPymeList = (ImageView)itemView.findViewById(R.id.img_pyme_list);
@@ -78,12 +83,16 @@ public class PymeListaAdaptador extends RecyclerView.Adapter<PymeListaAdaptador.
 
         }
 
-        public void bindPyme(Pyme p) {
-
-            txtNombre.setText(p.getNombre());
-            txtComuna.setText(p.getComuna());
-            txtDescripcion_corta.setText(p.getDescripcion_corta());
-
+        public void setDesc_larga(String desc_larga) {
+            this.desc_larga = desc_larga;
         }
+
+        public String getDesc_larga() {
+            return desc_larga;
+        }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 }

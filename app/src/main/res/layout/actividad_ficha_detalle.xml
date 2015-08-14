@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Av. Maria 6875, La Cisterna"
-                    android:id="@+id/textView1"
+                    android:id="@+id/txtpDireccion"
                     android:layout_gravity="center_vertical"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="+569 96957739"
-                    android:id="@+id/textView2"
+                    android:id="@+id/txtpTelefono"
                     android:layout_gravity="center_vertical"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="hotelpatagonia@gmail.com"
-                    android:id="@+id/textView3e"
+                    android:id="@+id/txtpEmail"
                     android:layout_gravity="center_vertical"
                     android:textSize="16sp" />
 
@@ -99,7 +99,7 @@
                 android:rating="0"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:stepSize="5" />
+                android:stepSize="1" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó "
-                android:id="@+id/textView3e4"
+                android:id="@+id/txtpDescLarga"
                 android:padding="10dp"
                 android:elegantTextHeight="false" />
         </LinearLayout>

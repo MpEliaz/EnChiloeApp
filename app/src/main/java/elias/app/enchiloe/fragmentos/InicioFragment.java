@@ -44,6 +44,7 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_inicio, container, false);
 
         mDemoSlider = (SliderLayout)v.findViewById(R.id.slider);
@@ -114,9 +115,9 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
         inflater.inflate(R.menu.menu_inicio, menu);
         super.onCreateOptionsMenu(menu, inflater);
 
-        final MenuItem item = menu.findItem(R.id.pyme_filter);
+/*        final MenuItem item = menu.findItem(R.id.pyme_filter);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-        searchView.setOnQueryTextListener(this);
+        searchView.setOnQueryTextListener(this);*/
     }
 
     @Override

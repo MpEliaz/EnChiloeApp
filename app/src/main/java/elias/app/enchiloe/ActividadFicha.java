@@ -1,28 +1,21 @@
 package elias.app.enchiloe;
 
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import elias.app.adaptadores.CategoriasAdaptador;
 import elias.app.modelos.Categoria;
 
 
@@ -33,17 +26,31 @@ public class ActividadFicha extends AppCompatActivity implements BaseSliderView.
     private CollapsingToolbarLayout ctlLayout;
     private SliderLayout mDemoSlider;
 
+    private String nombre="";
+    private TextView txtDireccion;
+    private TextView txtTelefono;
+    private TextView txtEmail;
+    private TextView txtDescripcion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_ficha);
 
+        if(savedInstanceState == null)
+        {
+            Bundle extras = getIntent().getExtras();
+            if(extras != null) {
+
+                setearDatos(extras);
+            }
+        }
 
         //App bar
         Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("Mi Aplicación");
+        getSupportActionBar().setTitle(nombre);
 
         mDemoSlider = (SliderLayout)findViewById(R.id.slider1);
 
@@ -70,7 +77,7 @@ public class ActividadFicha extends AppCompatActivity implements BaseSliderView.
             mDemoSlider.addSlider(textSliderView);
         }
 
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Stack );
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Stack);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(6000);
@@ -78,9 +85,23 @@ public class ActividadFicha extends AppCompatActivity implements BaseSliderView.
 
         //CollapsingToolbarLayout
         ctlLayout = (CollapsingToolbarLayout)findViewById(R.id.ctlLayout);
-        ctlLayout.setTitle("Hotel Patagonia");
+        ctlLayout.setTitle(nombre);
         ctlLayout.setCollapsedTitleTextAppearance(R.layout.ficha_titulo);
 
+    }
+
+    private void setearDatos(Bundle extras) {
+
+        nombre = extras.getString("nombre");
+        txtDireccion = (TextView)findViewById(R.id.txtpDireccion);
+        txtTelefono = (TextView)findViewById(R.id.txtpTelefono);
+        txtEmail = (TextView)findViewById(R.id.txtpEmail);
+        txtDescripcion = (TextView)findViewById(R.id.txtpDescLarga);
+
+        txtDireccion.setText(extras.getString("direccion"));
+        txtTelefono.setText(extras.getString("telefono"));
+        txtEmail.setText(extras.getString("email"));
+        txtDescripcion.setText(extras.getString("descripcion_larga"));
     }
 
     @Override

@@ -9,9 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -27,9 +30,10 @@ import java.util.ArrayList;
 import elias.app.adaptadores.PymeListaAdaptador;
 import elias.app.modelos.Pyme;
 
-public class ActividadListaPymes extends AppCompatActivity {
+public class ActividadListaPymes extends AppCompatActivity implements PymeListaAdaptador.OnItemClickListener{
 
-    private ArrayList<Pyme> pymes;
+    private PymeListaAdaptador adaptador;
+    ArrayList<Pyme> dataset = null;
     private RecyclerView rv;
     private Spinner sp;
     @Override
@@ -40,29 +44,41 @@ public class ActividadListaPymes extends AppCompatActivity {
         setToolbar();
         getPymes();
 
+
+
     }
 
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_pyme_list);
         setSupportActionBar(toolbar);
+    }
 
+    private void setAdapter()
+    {
+        if(dataset != null)
+        {
+            adaptador = new PymeListaAdaptador(dataset);
+            adaptador.setOnItemClickListener(this);
+            rv = (RecyclerView)findViewById(R.id.recView_pymes);
+            rv.setHasFixedSize(true);
+            rv.setAdapter(adaptador);
+            rv.setLayoutManager(
+                    new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        }
     }
 
     private void getPymes() {
 
         String URL = "http://192.168.50.14:8000/api/v1/pyme";
-
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        JsonObjectRequest req = new JsonObjectRequest(URL, new Response.Listener<JSONObject>(){
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, URL, new Response.Listener<JSONObject>(){
 
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("respuesta OK", response.toString());
-                ArrayList<Pyme> dataset =  new ArrayList<Pyme>();
                 dataset = parser(response);
-                final PymeListaAdaptador adaptador = new PymeListaAdaptador(dataset);
-                setPymes(adaptador,dataset);
+                setAdapter();
 
             }
         }, new Response.ErrorListener(){
@@ -70,24 +86,17 @@ public class ActividadListaPymes extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("Respuesta Bad", error.getCause().toString());
+                dataset = null;
             }
         });
 
         queue.add(req);
     }
 
-    private void setPymes(PymeListaAdaptador adapter, ArrayList<Pyme> dataset) {
-
-        rv = (RecyclerView)findViewById(R.id.recView_pymes);
-        rv.setHasFixedSize(true);
-        rv.setAdapter(adapter);
-        rv.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-    }
 
     private ArrayList<Pyme> parser(JSONObject response) {
 
-        ArrayList<Pyme> aux = new ArrayList<Pyme>();
+        ArrayList<Pyme> aux = new ArrayList<>();
         JSONArray data;
 
 
@@ -107,6 +116,7 @@ public class ActividadListaPymes extends AppCompatActivity {
                     p.setEmail(object.getString("email"));
                     p.setUrl_imagen(object.getString("url_imagen"));
                     p.setDescripcion_corta(object.getString("descripcion_corta"));
+                    p.setDescripcion_larga(object.getString("descripcion_larga"));
                     p.setComuna(object.getJSONObject("comuna").getString("nombre"));
                     aux.add(p);
                 }
@@ -140,5 +150,20 @@ public class ActividadListaPymes extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(View view, Pyme p, int position) {
+        //Toast.makeText(this, "pulsaste la pyme de id:" + pyme.getId(),Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this,ActividadFicha.class);
+        i.putExtra("id", p.getId());
+        i.putExtra("nombre",p.getNombre());
+        i.putExtra("direccion", p.getDireccion());
+        i.putExtra("telefono", p.getTelefono());
+        i.putExtra("email", p.getEmail());
+        i.putExtra("descripcion_larga", p.getDescripcion_larga());
+        startActivity(i);
+
+
     }
 }
