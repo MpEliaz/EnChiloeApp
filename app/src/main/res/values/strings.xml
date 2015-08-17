@@ -13,4 +13,5 @@
     <string-array name="categorias">
 
     </string-array>
+    <string name="title_activity_actividad_mapa">ActividadMapa</string>
 </resources>

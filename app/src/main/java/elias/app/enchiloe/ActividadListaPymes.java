@@ -1,8 +1,10 @@
 package elias.app.enchiloe;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -62,6 +64,7 @@ public class ActividadListaPymes extends AppCompatActivity implements PymeListaA
             rv = (RecyclerView)findViewById(R.id.recView_pymes);
             rv.setHasFixedSize(true);
             rv.setAdapter(adaptador);
+            rv.setItemAnimator(new DefaultItemAnimator());
             rv.setLayoutManager(
                     new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         }
@@ -71,22 +74,27 @@ public class ActividadListaPymes extends AppCompatActivity implements PymeListaA
 
         String URL = "http://192.168.50.14:8000/api/v1/pyme";
         RequestQueue queue = Volley.newRequestQueue(this);
+        final ProgressDialog pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Cargando...");
+        pDialog.show();
 
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, URL, new Response.Listener<JSONObject>(){
 
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("respuesta OK", response.toString());
+                Log.e("respuesta OK", response.toString());
                 dataset = parser(response);
                 setAdapter();
+                pDialog.hide();
 
             }
         }, new Response.ErrorListener(){
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Respuesta Bad", error.getCause().toString());
+                Log.e("Respuesta Bad", error.getCause().toString());
                 dataset = null;
+                pDialog.hide();
             }
         });
 
@@ -118,6 +126,11 @@ public class ActividadListaPymes extends AppCompatActivity implements PymeListaA
                     p.setDescripcion_corta(object.getString("descripcion_corta"));
                     p.setDescripcion_larga(object.getString("descripcion_larga"));
                     p.setComuna(object.getJSONObject("comuna").getString("nombre"));
+                    Log.e("geodato",object.getString("geo_posicion"));
+                    if(object.getString("geo_posicion")!="null"){
+                        p.setLatitud(object.getJSONObject("geo_posicion").getDouble("lat"));
+                        p.setLongitud(object.getJSONObject("geo_posicion").getDouble("lng"));
+                    }
                     aux.add(p);
                 }
 
@@ -162,6 +175,8 @@ public class ActividadListaPymes extends AppCompatActivity implements PymeListaA
         i.putExtra("telefono", p.getTelefono());
         i.putExtra("email", p.getEmail());
         i.putExtra("descripcion_larga", p.getDescripcion_larga());
+        i.putExtra("latitud", p.getLatitud());
+        i.putExtra("longitud", p.getLongitud());
         startActivity(i);
 
 

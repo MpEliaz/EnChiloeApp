@@ -56,7 +56,6 @@ public class PymeListaAdaptador extends RecyclerView.Adapter<PymeListaAdaptador.
         holder.txtNombre.setText(p.getNombre());
         holder.txtComuna.setText(p.getComuna());
         holder.txtDescripcion_corta.setText(p.getDescripcion_corta());
-        holder.setDesc_larga(p.getDescripcion_larga());
     }
 
     @Override
@@ -70,7 +69,6 @@ public class PymeListaAdaptador extends RecyclerView.Adapter<PymeListaAdaptador.
         private TextView txtNombre;
         private TextView txtComuna;
         private TextView txtDescripcion_corta;
-        private String desc_larga;
 
 
         public ViewHolder(View itemView) {
@@ -82,16 +80,7 @@ public class PymeListaAdaptador extends RecyclerView.Adapter<PymeListaAdaptador.
             txtDescripcion_corta = (TextView)itemView.findViewById(R.id.txt_pyme_desc_list);
 
         }
-
-        public void setDesc_larga(String desc_larga) {
-            this.desc_larga = desc_larga;
-        }
-
-        public String getDesc_larga() {
-            return desc_larga;
-        }
     }
-
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }

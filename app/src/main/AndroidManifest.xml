@@ -41,6 +41,10 @@
             android:name=".ActividadListaPymes"
             android:label="@string/title_activity_lista_pymes" >
         </activity>
+        <activity
+            android:name=".ActividadMapa"
+            android:label="@string/title_activity_actividad_mapa" >
+        </activity>
     </application>
 
 </manifest>

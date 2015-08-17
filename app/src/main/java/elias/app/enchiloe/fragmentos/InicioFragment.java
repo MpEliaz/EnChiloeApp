@@ -3,36 +3,36 @@ package elias.app.enchiloe.fragmentos;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
+
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
+import elias.app.adaptadores.InicioAdaptador;
 import elias.app.enchiloe.R;
+import elias.app.modelos.Pyme;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InicioFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, SearchView.OnQueryTextListener {
+public class InicioFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, SearchView.OnQueryTextListener, InicioAdaptador.OnItemClickListener {
 
     private SliderLayout mDemoSlider;
+    ArrayList<Pyme> dataset = null;
+    private RecyclerView rv;
 
-    public InicioFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,21 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
         setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_inicio, container, false);
 
+        dataset = new ArrayList<Pyme>();
+        dataset.add(new Pyme(1,"Pyme 1", "url"));
+        dataset.add(new Pyme(2,"Pyme 2", "url"));
+        dataset.add(new Pyme(3,"Pyme 3", "url"));
+        dataset.add(new Pyme(4,"Pyme 4", "url"));
+
+        final InicioAdaptador adaptador = new InicioAdaptador(dataset);
+        adaptador.setOnItemClickListener(this);
+        rv = (RecyclerView)v.findViewById(R.id.inicio_RecView);
+        rv.setHasFixedSize(true);
+        rv.setAdapter(adaptador);
+        rv.setLayoutManager(
+                new GridLayoutManager(getActivity(),2));
+
+/*
         mDemoSlider = (SliderLayout)v.findViewById(R.id.slider);
 
         HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
@@ -76,10 +91,11 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(6000);
         mDemoSlider.addOnPageChangeListener(this);
+*/
 
         return v;
     }
-    @Override
+/*    @Override
     public void onStop() {
         // To prevent a memory leak on rotation, make sure to call stopAutoCycle() on the slider before activity or fragment is destroyed
         mDemoSlider.stopAutoCycle();
@@ -90,7 +106,7 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
     public void onResume() {
         mDemoSlider.startAutoCycle();
         super.onResume();
-    }
+    }*/
 
     @Override
     public void onSliderClick(BaseSliderView slider) {
@@ -128,6 +144,11 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
     @Override
     public boolean onQueryTextChange(String newText) {
         return false;
+    }
+
+    @Override
+    public void onItemClick(View view, Pyme pyme, int position) {
+
     }
 }
 

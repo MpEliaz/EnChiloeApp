@@ -43,14 +43,6 @@
 
             </LinearLayout>
 
-            <!--<ImageView
-                android:id="@+id/imgToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/quellon"
-                app:layout_collapseMode="parallax" />-->
-
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/appbar"
@@ -85,78 +77,6 @@
                 android:layout_marginTop="5dp"
                 layout="@layout/actividad_ficha_detalle" />
 
-           <!-- <android.support.v7.widget.CardView
-                android:id="@+id/card2"
-                android:layout_width="match_parent"
-                android:layout_height="200dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/quellon"
-                    android:scaleType="centerCrop"/>
-
-                <TextView
-                    android:id="@+id/txt2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Hotel gran Chiloé"
-                    android:layout_gravity="bottom"
-                    android:background="#8c000000"
-                    android:textColor="#ffe3e3e3"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                android:id="@+id/carkd2"
-                android:layout_width="match_parent"
-                android:layout_height="200dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/quellon"
-                    android:scaleType="centerCrop"/>
-
-                <TextView
-                    android:id="@+id/txtd2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Hotel gran Chiloé"
-                    android:layout_gravity="bottom"
-                    android:background="#8c000000"
-                    android:textColor="#ffe3e3e3"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardfd"
-                android:layout_width="match_parent"
-                android:layout_height="200dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/quellon"
-                    android:scaleType="centerCrop"/>
-
-                <TextView
-                    android:id="@+id/txt2dg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Hotel gran Chiloé"
-                    android:layout_gravity="bottom"
-                    android:background="#8c000000"
-                    android:textColor="#ffe3e3e3"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-
-            </android.support.v7.widget.CardView>-->
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

@@ -5,28 +5,27 @@ import com.google.gson.annotations.SerializedName;
  * Created by elias on 26-07-15.
  */
 public class Pyme {
-    @SerializedName("id")
+
     private int id;
-    @SerializedName("nombre")
     private String nombre;
-    @SerializedName("direccion")
     private String direccion;
-    @SerializedName("telefono")
     private String telefono;
-    @SerializedName("comuna")
     private String comuna;
-    @SerializedName("estado")
     private int estado;
-    @SerializedName("email")
     private String email;
-    @SerializedName("url_imagen")
     private String url_imagen;
-    @SerializedName("descripcion_corta")
     private String descripcion_corta;
-    @SerializedName("descripcion_larga")
     private String descripcion_larga;
+    private Double latitud;
+    private Double longitud;
 
     public Pyme(){}
+
+    public Pyme(int id, String nombre, String url_imagen) {
+        this.id = id;
+        this.nombre = nombre;
+        this.url_imagen = url_imagen;
+    }
 
     public Pyme(int id, String nombre, String descripcion_corta, String comuna) {
         this.id = id;
@@ -113,5 +112,20 @@ public class Pyme {
 
     public void setDescripcion_larga(String descripcion_larga) {
         this.descripcion_larga = descripcion_larga;
+    }
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
     }
 }
