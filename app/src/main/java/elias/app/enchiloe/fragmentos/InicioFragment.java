@@ -3,6 +3,7 @@ package elias.app.enchiloe.fragmentos;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -14,14 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import elias.app.adaptadores.InicioAdaptador;
 import elias.app.enchiloe.R;
+import elias.app.modelos.Destacado;
 import elias.app.modelos.Pyme;
 
 /**
@@ -30,8 +36,9 @@ import elias.app.modelos.Pyme;
 public class InicioFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, SearchView.OnQueryTextListener, InicioAdaptador.OnItemClickListener {
 
     private SliderLayout mDemoSlider;
-    ArrayList<Pyme> dataset = null;
+    List<Object> dataset = null;
     private RecyclerView rv;
+    private ViewPager viewpager;
 
 
     @Override
@@ -47,22 +54,17 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
         setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_inicio, container, false);
 
-        dataset = new ArrayList<Pyme>();
+
+        dataset = new ArrayList<>();
+        dataset.add(new Destacado(1,"hola",null));
         dataset.add(new Pyme(1,"Pyme 1", "url"));
         dataset.add(new Pyme(2,"Pyme 2", "url"));
         dataset.add(new Pyme(3,"Pyme 3", "url"));
         dataset.add(new Pyme(4,"Pyme 4", "url"));
 
-        final InicioAdaptador adaptador = new InicioAdaptador(dataset);
-        adaptador.setOnItemClickListener(this);
-        rv = (RecyclerView)v.findViewById(R.id.inicio_RecView);
-        rv.setHasFixedSize(true);
-        rv.setAdapter(adaptador);
-        rv.setLayoutManager(
-                new GridLayoutManager(getActivity(),2));
+        //<editor-fold desc="SliderLayout">
+/*        mDemoSlider = (SliderLayout)v.findViewById(R.id.slider);
 
-/*
-        mDemoSlider = (SliderLayout)v.findViewById(R.id.slider);
 
         HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
         file_maps.put("Hannibal", R.drawable.hannibal);
@@ -90,27 +92,45 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(6000);
-        mDemoSlider.addOnPageChangeListener(this);
-*/
+        //mDemoSlider.addOnPageChangeListener(this);*/
+        //</editor-fold>
 
+        final InicioAdaptador adaptador = new InicioAdaptador(dataset, getActivity().getSupportFragmentManager());
+        adaptador.setOnItemClickListener(this);
+        rv = (RecyclerView)v.findViewById(R.id.inicio_RecView);
+
+
+        //rv.setLayoutManager(new GridLayoutManager(getActivity(),2));
+
+        GridLayoutManager manager = new GridLayoutManager(getActivity(),2);
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return position == 0 ? 2 : 1;
+            }
+        });
+
+        rv.setLayoutManager(manager);
+        rv.setHasFixedSize(true);
+        rv.setAdapter(adaptador);
         return v;
     }
-/*    @Override
+    @Override
     public void onStop() {
         // To prevent a memory leak on rotation, make sure to call stopAutoCycle() on the slider before activity or fragment is destroyed
-        mDemoSlider.stopAutoCycle();
+        //mDemoSlider.stopAutoCycle();
         super.onStop();
     }
 
     @Override
     public void onResume() {
-        mDemoSlider.startAutoCycle();
+        //mDemoSlider.startAutoCycle();
         super.onResume();
-    }*/
+    }
 
     @Override
     public void onSliderClick(BaseSliderView slider) {
-        Toast.makeText(getActivity(),slider.getBundle().get("extra") + "",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(),slider.getBundle().get("extra") + "",Toast.LENGTH_SHORT).show();
     }
 
 

@@ -1,5 +1,8 @@
 package elias.app.adaptadores;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +13,14 @@ import android.widget.TextView;
 import com.daimajia.slider.library.SliderLayout;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import elias.app.enchiloe.R;
+import elias.app.enchiloe.fragmentos.CategoriasFragment;
+import elias.app.enchiloe.fragmentos.EventosFragment;
+import elias.app.enchiloe.fragmentos.InicioFragment;
+import elias.app.modelos.Destacado;
 import elias.app.modelos.Pyme;
 
 /**
@@ -19,107 +28,153 @@ import elias.app.modelos.Pyme;
  */
 public class InicioAdaptador extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
-    private ArrayList<Pyme> datos;
+    private List<Object> datos;
     private OnItemClickListener onItemClickListener;
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
+    private FragmentManager fragmentManager;
 
-    public InicioAdaptador(ArrayList<Pyme> datos) {
+    public InicioAdaptador(List<Object> datos, FragmentManager f) {
         this.datos = datos;
+        this.fragmentManager = f;
     }
-    public interface OnItemClickListener {
-        void onItemClick(View view, Pyme pyme, int position);
-    }
+
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        RecyclerView.ViewHolder vh = null;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        if(viewType == TYPE_ITEM){
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.inicio_card_item, parent, false);
-
-            final ViewHolderItem vh = new ViewHolderItem(itemView);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(onItemClickListener != null)
-                    {
-                        onItemClickListener.onItemClick(v,datos.get(vh.getAdapterPosition()),vh.getAdapterPosition());
-                    }
-                }
-            });
-
-            return vh;
+        switch (viewType){
+            case TYPE_HEADER:
+                View header = inflater.inflate(R.layout.inicio_slider, parent, false);
+                vh = new ViewHolderHeader(header);
+                break;
+            case TYPE_ITEM:
+                View item = inflater.inflate(R.layout.inicio_card_item, parent, false);
+                vh = new ViewHolderItem(item);
+                break;
         }
-        else if(viewType == TYPE_HEADER) {
-
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.inicio_slider, parent, false);
-            final ViewHolderHeader vh = new ViewHolderHeader(v);
-
-        }
-
-        throw new RuntimeException("there is no type that matches the type " + viewType + " + make sure your using types correctly");
-
+        return vh;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        if(holder instanceof ViewHolderItem){
-
-        Pyme p = datos.get(position);
-            ((ViewHolderItem)holder).txtNombre.setText(p.getNombre());
-        }else if (holder instanceof ViewHolderHeader){
-
+        switch (holder.getItemViewType()){
+            case TYPE_HEADER:
+                ViewHolderHeader vHeader = (ViewHolderHeader)holder;
+                configurarHeader(vHeader, position);
+                break;
+            case TYPE_ITEM:
+                ViewHolderItem vItem = (ViewHolderItem)holder;
+                configurarItem(vItem, position);
+                break;
         }
 
     }
 
+    private void configurarItem(ViewHolderItem vItem, int position) {
+        Pyme p = (Pyme)datos.get(position);
+        if(p!=null){
+            vItem.getTxtNombre().setText(p.getNombre());
+            vItem.getImg().setImageResource(R.drawable.quellon);
+            vItem.getImg().setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
+    }
+
+    private void configurarHeader(ViewHolderHeader vHeader, int position) {
+
+        Destacado d = (Destacado)datos.get(position);
+        if(d!=null){
+            ArrayList<Fragment> fragments;
+
+            fragments = new ArrayList<Fragment>();
+            fragments.add(new Fragment());
+            fragments.add(new Fragment());
+            fragments.add(new Fragment());
+
+            MainPagerAdapter adapter = new MainPagerAdapter(fragmentManager, fragments);
+            vHeader.getTxt().setAdapter(adapter);
+        }
+    }
+
     @Override
     public int getItemCount() {
-        return datos.size()+1;
+        return datos.size();
     }
     @Override
     public int getItemViewType(int position) {
-        if (isPositionHeader(position))
+        if(datos.get(position) instanceof Destacado) {
             return TYPE_HEADER;
+        }else if(datos.get(position) instanceof Pyme){
+            return TYPE_ITEM;
+        }
+        return -1;
 
-        return TYPE_ITEM;
     }
 
-    private boolean isPositionHeader(int position) {
-        return position == 0;
-    }
 
 
-
-    public static class ViewHolderItem extends RecyclerView.ViewHolder {
+    //<editor-fold desc="VIEWHOLDERS">
+    public class ViewHolderItem extends RecyclerView.ViewHolder {
 
         private ImageView img;
         private TextView txtNombre;
 
 
 
-        public ViewHolderItem(View itemView) {
-            super(itemView);
+        public ViewHolderItem(View v) {
+            super(v);
 
-            txtNombre = (TextView)itemView.findViewById(R.id.txtCardInicio);
+            img     = (ImageView)v.findViewById(R.id.imgCardInicio);
+            txtNombre = (TextView)v.findViewById(R.id.txtCardInicio);
 
+        }
+
+        public ImageView getImg() {
+            return img;
+        }
+
+        public void setImg(ImageView img) {
+            this.img = img;
+        }
+
+        public TextView getTxtNombre() {
+            return txtNombre;
+        }
+
+        public void setTxtNombre(TextView txtNombre) {
+            this.txtNombre = txtNombre;
         }
     }
 
-    public static class ViewHolderHeader extends RecyclerView.ViewHolder{
+    public class ViewHolderHeader extends RecyclerView.ViewHolder{
 
-        private SliderLayout slider;
+        private ViewPager txt;
 
-        public ViewHolderHeader(View itemView) {
-            super(itemView);
+        public ViewHolderHeader(View v) {
+            super(v);
 
-            slider = (SliderLayout)itemView.findViewById(R.id.slider);
+            txt = (ViewPager)v.findViewById(R.id.pagerImage);
+        }
+
+        public ViewPager getTxt() {
+            return txt;
+        }
+
+        public void setTxt(ViewPager txt) {
+            this.txt = txt;
         }
     }
+    //</editor-fold>
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, Pyme pyme, int position);
     }
 }
