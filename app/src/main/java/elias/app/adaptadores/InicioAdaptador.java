@@ -1,5 +1,7 @@
 package elias.app.adaptadores;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -10,9 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,10 +39,14 @@ public class InicioAdaptador extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
     private FragmentManager fragmentManager;
+    private Context cx;
+    private HashMap<String,Integer> images;
 
-    public InicioAdaptador(List<Object> datos, FragmentManager f) {
+    public InicioAdaptador(List<Object> datos,HashMap<String,Integer> imgs, FragmentManager f, Context cx) {
         this.datos = datos;
         this.fragmentManager = f;
+        this.cx = cx;
+        this.images = imgs;
     }
 
 
@@ -88,15 +98,34 @@ public class InicioAdaptador extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         Destacado d = (Destacado)datos.get(position);
         if(d!=null){
-            ArrayList<Fragment> fragments;
 
-            fragments = new ArrayList<Fragment>();
-            fragments.add(new Fragment());
-            fragments.add(new Fragment());
-            fragments.add(new Fragment());
+            SliderLayout mDemoSlider = vHeader.getVp();
 
-            MainPagerAdapter adapter = new MainPagerAdapter(fragmentManager, fragments);
-            vHeader.getTxt().setAdapter(adapter);
+        if(images != null) {
+
+            for (String name : images.keySet()) {
+                TextSliderView textSliderView = new TextSliderView(cx);
+                // initialize a SliderLayout
+                textSliderView
+                        .description(name)
+                        .image(images.get(name))
+                        .setScaleType(BaseSliderView.ScaleType.Fit);
+                //.setOnSliderClickListener();
+
+                //add your extra information
+                textSliderView.bundle(new Bundle());
+                textSliderView.getBundle()
+                        .putString("extra", name);
+
+                mDemoSlider.addSlider(textSliderView);
+            }
+
+            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.FlipHorizontal);
+            mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+            mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+            mDemoSlider.setDuration(6000);
+            //mDemoSlider.addOnPageChangeListener(this);
+        }
         }
     }
 
@@ -152,20 +181,20 @@ public class InicioAdaptador extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public class ViewHolderHeader extends RecyclerView.ViewHolder{
 
-        private ViewPager txt;
+        private SliderLayout vp;
 
         public ViewHolderHeader(View v) {
             super(v);
 
-            txt = (ViewPager)v.findViewById(R.id.pagerImage);
+            vp = (SliderLayout)v.findViewById(R.id.sliderInicio);
         }
 
-        public ViewPager getTxt() {
-            return txt;
+        public SliderLayout getVp() {
+            return vp;
         }
 
-        public void setTxt(ViewPager txt) {
-            this.txt = txt;
+        public void setVp(SliderLayout txt) {
+            this.vp = vp;
         }
     }
     //</editor-fold>

@@ -54,6 +54,10 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
         setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.fragment_inicio, container, false);
 
+        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
+        file_maps.put("Hannibal", R.drawable.hannibal);
+        file_maps.put("Big Bang Theory", R.drawable.bigbang);
+        file_maps.put("House of Cards", R.drawable.house);
 
         dataset = new ArrayList<>();
         dataset.add(new Destacado(1,"hola",null));
@@ -95,7 +99,7 @@ public class InicioFragment extends Fragment implements BaseSliderView.OnSliderC
         //mDemoSlider.addOnPageChangeListener(this);*/
         //</editor-fold>
 
-        final InicioAdaptador adaptador = new InicioAdaptador(dataset, getActivity().getSupportFragmentManager());
+        final InicioAdaptador adaptador = new InicioAdaptador(dataset, file_maps, getActivity().getSupportFragmentManager(), getActivity());
         adaptador.setOnItemClickListener(this);
         rv = (RecyclerView)v.findViewById(R.id.inicio_RecView);
 
