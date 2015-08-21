@@ -1,30 +1,24 @@
 package elias.app.adaptadores;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
 import elias.app.enchiloe.R;
 import elias.app.modelos.Categoria;
-import elias.app.modelos.Evento;
+import elias.app.modelos.Pyme;
 
 /**
  * Created by elias on 26-07-15.
  */
-public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptador.CategoriaViewHolder> implements View.OnClickListener {
+public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptador.CategoriaViewHolder> {
 
     private ArrayList<Categoria> datos;
-    private View.OnClickListener listener;
+    private OnItemClickListener onItemClickListener;
 
     public CategoriasAdaptador(ArrayList<Categoria> datos) {
         this.datos = datos;
@@ -36,8 +30,16 @@ public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptado
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.categoria_list_item, viewGroup, false);
 
-        itemView.setOnClickListener(this);
-        CategoriaViewHolder tvh = new CategoriaViewHolder(itemView);
+        final CategoriaViewHolder tvh = new CategoriaViewHolder(itemView);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(v, datos.get(tvh.getAdapterPosition()), tvh.getAdapterPosition());
+                }
+            }
+        });
 
         return tvh;
     }
@@ -51,12 +53,6 @@ public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptado
     @Override
     public int getItemCount() {
         return datos.size();
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(listener != null)
-            listener.onClick(v);
     }
 
     public static class CategoriaViewHolder extends RecyclerView.ViewHolder {
@@ -80,8 +76,11 @@ public class CategoriasAdaptador extends RecyclerView.Adapter<CategoriasAdaptado
         }
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.listener = listener;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(View view, Categoria cat, int position);
+    }
 }

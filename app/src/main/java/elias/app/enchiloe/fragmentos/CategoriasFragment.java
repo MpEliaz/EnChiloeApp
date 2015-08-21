@@ -21,7 +21,7 @@ import elias.app.enchiloe.R;
 import elias.app.modelos.Categoria;
 import elias.app.modelos.Evento;
 
-public class CategoriasFragment extends Fragment {
+public class CategoriasFragment extends Fragment implements CategoriasAdaptador.OnItemClickListener {
 
     private RecyclerView recView;
     ArrayList<Categoria> categorias;
@@ -50,15 +50,8 @@ public class CategoriasFragment extends Fragment {
         recView.setHasFixedSize(true);
 
         final CategoriasAdaptador adaptador = new CategoriasAdaptador(categorias);
+        adaptador.setOnItemClickListener(this);
 
-        adaptador.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("DemoRecView", "Pulsado el elemento " + recView.getChildViewHolder(v).getItemId());
-                Intent intent = new Intent(getActivity(), ActividadListaPymes.class);
-                startActivity(intent);
-            }
-        });
 
         recView.setAdapter(adaptador);
         recView.setLayoutManager(
@@ -67,4 +60,12 @@ public class CategoriasFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onItemClick(View view, Categoria cat, int position) {
+        //Toast.makeText(getActivity(), "pulsaste la la cat de id:" + cat.getId(),Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), ActividadListaPymes.class);
+        intent.putExtra("cat_id",cat.getId());
+        intent.putExtra("cat_nombre",cat.getNombre());
+        startActivity(intent);
+    }
 }

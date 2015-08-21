@@ -26,11 +26,11 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_scrollFlags="scroll|enterAlways">
 
-                <!--<Spinner-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/sp_pyme_cat"-->
-                    <!--android:spinnerMode="dropdown" />-->
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sp_pyme_cat"
+                    android:spinnerMode="dropdown" />
 
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>

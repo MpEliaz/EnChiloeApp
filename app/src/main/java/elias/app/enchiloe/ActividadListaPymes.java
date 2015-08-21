@@ -38,11 +38,16 @@ public class ActividadListaPymes extends AppCompatActivity implements PymeListaA
     ArrayList<Pyme> dataset = null;
     private RecyclerView rv;
     private Spinner sp;
+    private String cat_nombre;
+    private int cat_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_lista_pymes);
 
+        Bundle extras = getIntent().getExtras();
+        cat_nombre = extras.getString("cat_nombre");
+        cat_id = extras.getInt("cat_id");
         setToolbar();
         getPymes();
 
@@ -52,7 +57,9 @@ public class ActividadListaPymes extends AppCompatActivity implements PymeListaA
 
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_pyme_list);
+        toolbar.setTitle(cat_nombre);
         setSupportActionBar(toolbar);
+
     }
 
     private void setAdapter()
@@ -72,7 +79,8 @@ public class ActividadListaPymes extends AppCompatActivity implements PymeListaA
 
     private void getPymes() {
 
-        String URL = "http://192.168.50.14:8000/api/v1/pyme";
+        String URL = "http://192.168.50.14:8000/api/v1/pyme?cat="+cat_id;
+        Log.e("URL", URL);
         RequestQueue queue = Volley.newRequestQueue(this);
         final ProgressDialog pDialog = new ProgressDialog(this);
         pDialog.setMessage("Cargando...");
@@ -116,7 +124,7 @@ public class ActividadListaPymes extends AppCompatActivity implements PymeListaA
 
                     Pyme p = new Pyme();
                     JSONObject object = (JSONObject) data.get(i);
-                    Log.d("->", object.toString());
+                    //Log.d("->", object.toString());
                     p.setId(object.getInt("id"));
                     p.setNombre(object.getString("nombre"));
                     p.setDireccion(object.getString("direccion"));
@@ -126,8 +134,8 @@ public class ActividadListaPymes extends AppCompatActivity implements PymeListaA
                     p.setDescripcion_corta(object.getString("descripcion_corta"));
                     p.setDescripcion_larga(object.getString("descripcion_larga"));
                     p.setComuna(object.getJSONObject("comuna").getString("nombre"));
-                    Log.e("geodato",object.getString("geo_posicion"));
-                    if(object.getString("geo_posicion")!="null"){
+                    //Log.e("geodato",object.getString("geo_posicion"));
+                    if(!object.getString("geo_posicion").equals("null")){
                         p.setLatitud(object.getJSONObject("geo_posicion").getDouble("lat"));
                         p.setLongitud(object.getJSONObject("geo_posicion").getDouble("lng"));
                     }

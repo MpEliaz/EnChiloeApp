@@ -55,8 +55,8 @@ public class EventosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Log.i("DemoRecView", "Pulsado el elemento " + recView.getChildPosition(v));
-                Intent intent = new Intent(getActivity(), ActividadFicha.class);
-                startActivity(intent);
+                //Intent intent = new Intent(getActivity(), ActividadFicha.class);
+                //startActivity(intent);
             }
         });
 
